@@ -8,6 +8,7 @@ use Database\Factories\BookingFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Booking extends Model
 {
@@ -18,6 +19,7 @@ class Booking extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'user_id',
         'title',
         'event_type',
         'status',
@@ -50,6 +52,26 @@ class Booking extends Model
     public function isActive(): bool
     {
         return $this->status !== BookingStatus::Completed;
+    }
+
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @param  Builder<Booking>  $query
+     * @return Builder<Booking>
+     */
+    public function scopeForCustomer(Builder $query, User $user): Builder
+    {
+        return $query->where(function (Builder $query) use ($user): void {
+            $query->where('user_id', $user->id)
+                ->orWhere('customer_email', $user->email);
+        });
     }
 
     /**

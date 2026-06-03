@@ -15,7 +15,7 @@ class BookingTest extends TestCase
 
     public function test_authenticated_user_can_view_bookings_index(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $this->actingAs($user)
             ->get(route('bookings.index'))
@@ -24,7 +24,7 @@ class BookingTest extends TestCase
 
     public function test_authenticated_user_can_create_booking(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $response = $this->actingAs($user)->post(route('bookings.store'), [
             'title' => 'The Adelaja Nuptials',
@@ -43,7 +43,7 @@ class BookingTest extends TestCase
 
     public function test_authenticated_user_can_update_booking(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $booking = Booking::factory()->status(BookingStatus::Planning)->create();
 
         $response = $this->actingAs($user)->put(route('bookings.update', $booking), [

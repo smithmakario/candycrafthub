@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\UserType;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -28,6 +30,14 @@ class User extends Authenticatable
         'address',
         'state',
         'country',
+        'user_type',
+    ];
+
+    /**
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'user_type' => UserType::Customer,
     ];
 
     /**
@@ -50,6 +60,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'user_type' => UserType::class,
         ];
     }
 
@@ -59,5 +70,39 @@ class User extends Authenticatable
     protected function name(): Attribute
     {
         return Attribute::get(fn (): string => trim("{$this->first_name} {$this->last_name}"));
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->user_type === UserType::Admin;
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->user_type === UserType::Customer;
+    }
+
+    public function homeRoute(): string
+    {
+        return match ($this->user_type) {
+            UserType::Admin => 'dashboard',
+            UserType::Customer => 'customer.dashboard',
+        };
+    }
+
+    /**
+     * @return HasMany<Order, $this>
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * @return HasMany<Booking, $this>
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 }

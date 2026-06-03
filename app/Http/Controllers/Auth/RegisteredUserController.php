@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisteredUserRequest;
 use App\Models\User;
+use App\UserType;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -37,12 +38,13 @@ class RegisteredUserController extends Controller
                 'country',
             ]),
             'password' => Hash::make($request->password),
+            'user_type' => UserType::Customer,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('customer.dashboard', absolute: false));
     }
 }

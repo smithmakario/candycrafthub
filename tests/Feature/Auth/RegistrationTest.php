@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\UserType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,7 +17,7 @@ class RegistrationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_new_users_can_register(): void
+    public function test_new_users_can_register_as_customers(): void
     {
         $response = $this->post('/register', [
             'first_name' => 'Test',
@@ -31,6 +32,11 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertRedirect(route('customer.dashboard', absolute: false));
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'test@example.com',
+            'user_type' => UserType::Customer->value,
+        ]);
     }
 }

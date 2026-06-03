@@ -86,6 +86,7 @@ class BookingController extends Controller
         $validated = $request->validated();
 
         Booking::query()->create([
+            'user_id' => $request->user()?->id,
             'title' => EventType::from($validated['event_type'])->label().' Inquiry',
             'event_type' => $validated['event_type'],
             'status' => BookingStatus::InquiryReceived,

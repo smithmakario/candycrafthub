@@ -21,7 +21,7 @@ class ProductTest extends TestCase
 
     public function test_authenticated_user_can_view_products_index(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $this->actingAs($user)
             ->get(route('products.index'))
@@ -30,7 +30,7 @@ class ProductTest extends TestCase
 
     public function test_authenticated_user_can_create_product(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $response = $this->actingAs($user)->post(route('products.store'), [
             'name' => 'Tangerine Chews',
@@ -51,7 +51,7 @@ class ProductTest extends TestCase
     public function test_authenticated_user_can_create_product_with_image(): void
     {
         Storage::fake('public');
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $response = $this->actingAs($user)->post(route('products.store'), [
             'name' => 'Tangerine Chews',
@@ -72,7 +72,7 @@ class ProductTest extends TestCase
 
     public function test_authenticated_user_can_update_product(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $product = Product::factory()->create(['name' => 'Old Name']);
 
         $response = $this->actingAs($user)->put(route('products.update', $product), [
@@ -93,7 +93,7 @@ class ProductTest extends TestCase
 
     public function test_authenticated_user_can_delete_product(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('products.destroy', $product));

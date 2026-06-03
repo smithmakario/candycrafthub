@@ -2,44 +2,63 @@
     $navLinkClass = fn (array $patterns): string => collect($patterns)->contains(fn (string $pattern): bool => request()->routeIs($pattern))
         ? 'flex items-center gap-md bg-primary text-on-primary rounded-xl px-md py-sm transition-all duration-200'
         : 'flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm transition-all duration-200';
+    $isAdmin = Auth::user()->isAdmin();
+    $homeRoute = Auth::user()->homeRoute();
+    $portalTitle = $isAdmin ? 'Admin Portal' : 'My Account';
+    $portalSubtitle = $isAdmin ? 'Management Console' : 'Orders & Membership';
 @endphp
 
 <header class="md:hidden fixed top-0 left-0 right-0 z-40 bg-surface-container border-b border-outline-variant/20 px-margin-mobile py-sm flex items-center gap-sm">
-    <a href="{{ route('dashboard') }}">
+    <a href="{{ route($homeRoute) }}">
         <img src="{{ asset('asset/logo.png') }}" alt="Candy Craft Hub" class="h-10 w-auto object-contain">
     </a>
-    <span class="text-label-md font-bold text-on-surface">Admin Portal</span>
+    <span class="text-label-md font-bold text-on-surface">{{ $portalTitle }}</span>
 </header>
 
 <aside class="fixed left-0 top-0 h-full hidden md:flex flex-col p-md gap-md bg-surface-container shadow-md w-64 z-50">
-    <a href="{{ route('dashboard') }}" class="mb-md px-sm shrink-0">
+    <a href="{{ route($homeRoute) }}" class="mb-md px-sm shrink-0">
         <img src="{{ asset('asset/logo.png') }}" alt="Candy Craft Hub" class="h-16 w-auto object-contain">
     </a>
     <div class="mb-sm px-sm">
-        <h1 class="text-label-md font-label-md font-bold text-on-surface">Admin Portal</h1>
-        <p class="text-label-sm text-on-surface-variant">Management Console</p>
+        <h1 class="text-label-md font-label-md font-bold text-on-surface">{{ $portalTitle }}</h1>
+        <p class="text-label-sm text-on-surface-variant">{{ $portalSubtitle }}</p>
     </div>
     <nav class="flex flex-col gap-sm flex-1">
-        <a class="{{ $navLinkClass(['dashboard']) }}" href="{{ route('dashboard') }}">
-            <span class="material-symbols-outlined">dashboard</span>
-            <span class="text-label-md font-label-md">Dashboard</span>
-        </a>
-        <a class="{{ $navLinkClass(['products.*']) }}" href="{{ route('products.index') }}">
-            <span class="material-symbols-outlined">shopping_bag</span>
-            <span class="text-label-md font-label-md">Products</span>
-        </a>
-        <a class="{{ $navLinkClass(['inventory.*']) }}" href="{{ route('inventory.index') }}">
-            <span class="material-symbols-outlined">inventory_2</span>
-            <span class="text-label-md font-label-md">Inventory</span>
-        </a>
-        <a class="{{ $navLinkClass(['bookings.*']) }}" href="{{ route('bookings.index') }}">
-            <span class="material-symbols-outlined">event_available</span>
-            <span class="text-label-md font-label-md">Bookings</span>
-        </a>
-        <a class="{{ $navLinkClass(['membership-plans.*']) }}" href="{{ route('membership-plans.index') }}">
-            <span class="material-symbols-outlined">card_membership</span>
-            <span class="text-label-md font-label-md">Membership Plans</span>
-        </a>
+        @if ($isAdmin)
+            <a class="{{ $navLinkClass(['dashboard']) }}" href="{{ route('dashboard') }}">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="text-label-md font-label-md">Dashboard</span>
+            </a>
+            <a class="{{ $navLinkClass(['products.*']) }}" href="{{ route('products.index') }}">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span class="text-label-md font-label-md">Products</span>
+            </a>
+            <a class="{{ $navLinkClass(['inventory.*']) }}" href="{{ route('inventory.index') }}">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span class="text-label-md font-label-md">Inventory</span>
+            </a>
+            <a class="{{ $navLinkClass(['bookings.*']) }}" href="{{ route('bookings.index') }}">
+                <span class="material-symbols-outlined">event_available</span>
+                <span class="text-label-md font-label-md">Bookings</span>
+            </a>
+            <a class="{{ $navLinkClass(['membership-plans.*']) }}" href="{{ route('membership-plans.index') }}">
+                <span class="material-symbols-outlined">card_membership</span>
+                <span class="text-label-md font-label-md">Membership Plans</span>
+            </a>
+        @else
+            <a class="{{ $navLinkClass(['customer.dashboard']) }}" href="{{ route('customer.dashboard') }}">
+                <span class="material-symbols-outlined">account_circle</span>
+                <span class="text-label-md font-label-md">Overview</span>
+            </a>
+            <a class="{{ $navLinkClass(['shop']) }}" href="{{ route('shop') }}">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span class="text-label-md font-label-md">Shop</span>
+            </a>
+            <a class="{{ $navLinkClass(['profile.*']) }}" href="{{ route('profile.edit') }}">
+                <span class="material-symbols-outlined">manage_accounts</span>
+                <span class="text-label-md font-label-md">Profile</span>
+            </a>
+        @endif
     </nav>
     <div class="mt-auto border-t border-outline-variant pt-md space-y-sm">
         <div class="flex items-center gap-sm px-sm">

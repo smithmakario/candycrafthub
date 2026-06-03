@@ -29,7 +29,7 @@ class MembershipPlanTest extends TestCase
 
     public function test_authenticated_user_can_create_membership_plan(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $response = $this->actingAs($user)->post(route('membership-plans.store'), [
             'name' => 'The Taster',
@@ -51,7 +51,7 @@ class MembershipPlanTest extends TestCase
 
     public function test_authenticated_user_can_update_membership_plan(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $plan = MembershipPlan::factory()->create(['name' => 'Old Plan']);
 
         $response = $this->actingAs($user)->put(route('membership-plans.update', $plan), [
@@ -77,7 +77,7 @@ class MembershipPlanTest extends TestCase
 
     public function test_authenticated_user_can_delete_membership_plan(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $plan = MembershipPlan::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('membership-plans.destroy', $plan));

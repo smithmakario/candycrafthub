@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryItemController;
 use App\Http\Controllers\MembershipPlanController;
@@ -36,7 +37,7 @@ Route::view('/our-story', 'story.index')->name('our-story');
 Route::post('/event-services/inquiries', [BookingController::class, 'storePublic'])
     ->name('bookings.store-public');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('products', ProductController::class);
@@ -45,6 +46,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('bookings', BookingController::class);
     Route::resource('membership-plans', MembershipPlanController::class)
         ->parameters(['membership-plans' => 'membershipPlan']);
+});
+
+Route::middleware(['auth', 'verified', 'customer'])->group(function () {
+    Route::get('/account', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
 });
 
 Route::middleware('auth')->group(function () {

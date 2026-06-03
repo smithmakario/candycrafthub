@@ -16,10 +16,10 @@
         @if (Route::has('login'))
             @auth
                 <a
-                    href="{{ route('dashboard') }}"
+                    href="{{ route(auth()->user()->homeRoute()) }}"
                     class="text-on-surface-variant hover:text-primary transition-colors duration-300 text-label-md font-label-md hidden md:block"
                 >
-                    Dashboard
+                    {{ auth()->user()->isAdmin() ? 'Dashboard' : 'My Account' }}
                 </a>
             @else
                 <a

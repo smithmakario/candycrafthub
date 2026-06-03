@@ -14,7 +14,7 @@ class InventoryItemTest extends TestCase
 
     public function test_authenticated_user_can_view_inventory_index(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $this->actingAs($user)
             ->get(route('inventory.index'))
@@ -23,7 +23,7 @@ class InventoryItemTest extends TestCase
 
     public function test_authenticated_user_can_create_inventory_item(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user)->post(route('inventory.store'), [
@@ -41,7 +41,7 @@ class InventoryItemTest extends TestCase
 
     public function test_authenticated_user_can_update_inventory_item(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $inventoryItem = InventoryItem::factory()->create(['quantity' => 100]);
 
         $response = $this->actingAs($user)->put(route('inventory.update', $inventoryItem), [
@@ -58,7 +58,7 @@ class InventoryItemTest extends TestCase
 
     public function test_authenticated_user_can_delete_inventory_item(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
         $inventoryItem = InventoryItem::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('inventory.destroy', $inventoryItem));
