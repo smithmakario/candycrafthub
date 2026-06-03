@@ -12,7 +12,7 @@ class ShopController extends Controller
     /**
      * @var array<string, array{label: string, origin?: ProductOrigin, category?: string}>
      */
-    private const array Filters = [
+    private const Filters = [
         'nostalgic' => [
             'label' => 'Nostalgic Classics',
             'origin' => ProductOrigin::LocalNostalgia,
