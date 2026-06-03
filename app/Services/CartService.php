@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class CartService
 {
-    private const string SessionKey = 'cart';
+    private const SessionKey = 'cart';
 
     /**
      * @return array<int, int> product_id => quantity
