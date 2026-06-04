@@ -21,21 +21,6 @@
                 >
                     {{ auth()->user()->isAdmin() ? 'Dashboard' : 'My Account' }}
                 </a>
-            @else
-                <a
-                    href="{{ route('login') }}"
-                    class="text-on-surface-variant hover:text-primary transition-colors duration-300 text-label-md font-label-md hidden md:block"
-                >
-                    Log in
-                </a>
-                @if (Route::has('register'))
-                    <a
-                        href="{{ route('register') }}"
-                        class="text-on-surface-variant hover:text-primary transition-colors duration-300 text-label-md font-label-md hidden md:block"
-                    >
-                        Register
-                    </a>
-                @endif
             @endauth
         @endif
         <a href="{{ route('cart.index') }}" class="relative material-symbols-outlined text-primary hover:scale-110 transition-transform p-sm" aria-label="Shopping cart">
