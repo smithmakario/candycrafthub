@@ -45,6 +45,10 @@
                 <span class="material-symbols-outlined">card_membership</span>
                 <span class="text-label-md font-label-md">Membership Plans</span>
             </a>
+            <a class="{{ $navLinkClass(['newsletter.*']) }}" href="{{ route('newsletter.index') }}">
+                <span class="material-symbols-outlined">mail</span>
+                <span class="text-label-md font-label-md">Newsletter</span>
+            </a>
         @else
             <a class="{{ $navLinkClass(['customer.dashboard']) }}" href="{{ route('customer.dashboard') }}">
                 <span class="material-symbols-outlined">account_circle</span>

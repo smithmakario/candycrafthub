@@ -14,9 +14,10 @@
                 A curated monthly journey through global flavors and nostalgic surprises, delivered right to your door in Lagos.
             </p>
             <div class="flex flex-wrap gap-md justify-center lg:justify-start pt-md">
-                <button type="button" class="bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-bold hover:scale-105 transition-transform shadow-md active:scale-95">
+                <a href="{{ route('shop') }}"
+                    class="inline-block bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-bold hover:scale-105 transition-transform shadow-md active:scale-95">
                     Start Your Adventure
-                </button>
+                </a>
                 <button type="button" class="border-2 border-secondary text-secondary px-lg py-sm rounded-full font-bold hover:bg-secondary/10 transition-colors">
                     View Sample Box
                 </button>

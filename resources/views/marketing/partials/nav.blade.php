@@ -8,6 +8,7 @@
         <img src="{{ asset('asset/logo.png') }}" alt="Candy Craft Hub" class="h-20 w-auto object-contain">
     </a>
     <div class="hidden md:flex gap-lg items-center">
+        <a href="{{ route('home') }}" class="{{ $navLinkClass('home') }}">Home</a>
         <a href="{{ route('shop') }}" class="{{ $navLinkClass('shop') }}">Shop</a>
         <a href="{{ route('event-services') }}" class="{{ $navLinkClass('event-services') }}">Event Services</a>
         <a href="{{ route('our-story') }}" class="{{ $navLinkClass('our-story') }}">Our Story</a>

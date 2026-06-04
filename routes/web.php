@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryItemController;
 use App\Http\Controllers\MembershipPlanController;
+use App\Http\Controllers\NewsletterSubscriberController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', WelcomeController::class)->name('home');
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::post('/newsletter', [NewsletterSubscriberController::class, 'store'])->name('newsletter.store');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
@@ -46,6 +48,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('bookings', BookingController::class);
     Route::resource('membership-plans', MembershipPlanController::class)
         ->parameters(['membership-plans' => 'membershipPlan']);
+    Route::get('/newsletter', [NewsletterSubscriberController::class, 'index'])->name('newsletter.index');
 });
 
 Route::middleware(['auth', 'verified', 'customer'])->group(function () {

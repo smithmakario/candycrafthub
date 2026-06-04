@@ -16,7 +16,7 @@
                         <span class="font-bold text-label-md">Sweet &amp; Fruity</span>
                     </button>
                     <button type="button" class="quiz-choice flex flex-col items-center p-lg bg-surface rounded-2xl border-2 border-transparent hover:border-primary-container hover:shadow-lg transition-all group active:scale-95">
-                        <span class="material-symbols-outlined text-primary text-4xl mb-md group-hover:scale-110 transition-transform">lemon</span>
+                        <span class="material-symbols-outlined text-primary text-4xl mb-md group-hover:scale-110 transition-transform">water_drop</span>
                         <span class="font-bold text-label-md">Sour &amp; Tangy</span>
                     </button>
                     <button type="button" class="quiz-choice flex flex-col items-center p-lg bg-surface rounded-2xl border-2 border-transparent hover:border-primary-container hover:shadow-lg transition-all group active:scale-95">
@@ -36,7 +36,7 @@
                 </h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-md">
                     <button type="button" class="quiz-choice flex flex-col items-center p-lg bg-surface rounded-2xl border-2 border-transparent hover:border-primary-container hover:shadow-lg transition-all group active:scale-95">
-                        <span class="material-symbols-outlined text-primary text-4xl mb-md group-hover:scale-110 transition-transform">catching_pokemon</span>
+                        <span class="material-symbols-outlined text-primary text-4xl mb-md group-hover:scale-110 transition-transform">bakery_dining</span>
                         <span class="font-bold text-label-md text-center">Chewy &amp; Gummy</span>
                     </button>
                     <button type="button" class="quiz-choice flex flex-col items-center p-lg bg-surface rounded-2xl border-2 border-transparent hover:border-primary-container hover:shadow-lg transition-all group active:scale-95">

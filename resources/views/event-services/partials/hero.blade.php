@@ -1,10 +1,20 @@
+@php
+    $heroImage = 'https://images.unsplash.com/photo-1519741497674-611481863552';
+    $heroImageParams = 'auto=format&fit=crop&q=90';
+@endphp
+
 <section class="relative w-full h-[614px] md:h-[716px] flex items-center overflow-hidden px-margin-mobile md:px-margin-desktop">
     <div class="absolute inset-0 z-0">
         <img
-            alt="A luxurious high-end outdoor wedding reception in Lagos at sunset. The scene features long tables adorned with premium confectionery centerpieces, delicate floral arrangements in Cotton Candy Pink, and warm ambient string lighting. The overall mood is celebratory, whimsical, and sophisticated, reflecting a premium confectionery brand identity."
-            class="w-full h-full object-cover brightness-75"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1GrNclfeunmihTasmFeFQsdLeXFlbEdJ6jsSmH6Ix0DYGpPpcmvKVUtk0QlAOpU_muMpvnAW2iEYqKG-Gr24PgUD057h85uzdF1MpSoXVq7HRqCIoclLLvO5WbM9J2ODosEL3Sg74q2wz_UzRRA75t1ghWIP7CXaPs2qcUVpxJVRAvRP9DZUV5mQTQieBga56mbuZhJQdCDNeH3qlxOE7rh3RXFqwKKOfHF7jEXxEbtwgnn2k0kKq0EX_kXuhA_wv8NLo6IKxRx9G"
+            alt="A luxurious high-end outdoor wedding reception at sunset with long tables, floral arrangements, and warm ambient lighting."
+            class="w-full h-full object-cover object-center"
+            src="{{ $heroImage }}?{{ $heroImageParams }}&w=2560"
+            srcset="{{ $heroImage }}?{{ $heroImageParams }}&w=1280 1280w, {{ $heroImage }}?{{ $heroImageParams }}&w=1920 1920w, {{ $heroImage }}?{{ $heroImageParams }}&w=2560 2560w"
+            sizes="100vw"
+            fetchpriority="high"
+            decoding="async"
         >
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/15" aria-hidden="true"></div>
     </div>
     <div class="relative z-10 max-w-2xl text-white">
         <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-md leading-tight">Sweetening Every Lagos Celebration</h1>

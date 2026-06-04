@@ -1,4 +1,4 @@
-<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface">
+{{-- <section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface">
     <div class="max-w-7xl mx-auto">
         <div class="text-center mb-xl">
             <h2 class="text-headline-md font-headline-md text-on-surface">Monthly Membership Plans</h2>
@@ -60,4 +60,4 @@
             @endforelse
         </div>
     </div>
-</section>
+</section> --}}

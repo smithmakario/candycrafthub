@@ -22,14 +22,6 @@
             </div>
         </section>
 
-        @if (session('success'))
-            <div class="mx-margin-mobile md:mx-margin-desktop mb-md">
-                <p class="rounded-xl bg-primary-container text-on-primary-container px-md py-sm font-label-md">
-                    {{ session('success') }}
-                </p>
-            </div>
-        @endif
-
         <section class="px-margin-mobile md:px-margin-desktop pb-xl grid grid-cols-1 lg:grid-cols-12 gap-gutter">
             <aside class="lg:col-span-3 space-y-lg">
                 <div class="glass-card p-md rounded-xl border border-outline-variant/30">
@@ -92,9 +84,14 @@
                     Circle</h2>
                 <p class="font-body-lg text-body-lg text-on-surface-variant mb-lg">Be the first to know about new flavor
                     drops and exclusive candy craft events in Lagos.</p>
-                <form class="flex flex-col md:flex-row gap-md">
+                <form method="POST" action="{{ route('newsletter.store') }}"
+                    class="flex flex-col md:flex-row gap-md">
+                    @csrf
                     <input
-                        class="flex-grow px-md py-sm rounded-full bg-surface-container-lowest border-2 border-outline-variant focus:border-primary focus:ring-0 transition-all duration-300"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        class="flex-grow px-md py-sm rounded-full bg-surface-container-lowest border-2 border-outline-variant focus:border-primary focus:ring-0 transition-all duration-300 @error('email') border-error @enderror"
                         placeholder="Enter your email" type="email" />
                     <button
                         class="bg-primary text-on-primary px-xl py-sm rounded-full font-bold hover:scale-105 transition-all"
@@ -105,4 +102,6 @@
     </main>
 
     @include('marketing.partials.footer')
+
+    @include('marketing.partials.toast')
 @endsection
