@@ -115,4 +115,8 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    'customer_care' => [
+        'address' => env('MAIL_CUSTOMER_CARE_ADDRESS', 'customercare@candycrafthub.com'),
+    ],
+
 ];

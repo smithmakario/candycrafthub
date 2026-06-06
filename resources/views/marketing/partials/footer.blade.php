@@ -19,7 +19,7 @@
         <h4 class="font-bold mb-md text-on-surface">Help</h4>
         <ul class="space-y-sm">
             <li><a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Lagos Delivery Zones</a></li>
-            <li><a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Us</a></li>
+            <li><a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="{{ route('contact') }}">Contact Us</a></li>
             <li><a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Shipping Policy</a></li>
         </ul>
     </div>

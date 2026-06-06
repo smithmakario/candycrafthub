@@ -49,10 +49,18 @@
                 <span class="material-symbols-outlined">mail</span>
                 <span class="text-label-md font-label-md">Newsletter</span>
             </a>
+            <a class="{{ $navLinkClass(['orders.index']) }}" href="{{ route('orders.index') }}">
+                <span class="material-symbols-outlined">receipt_long</span>
+                <span class="text-label-md font-label-md">Transactions</span>
+            </a>
         @else
             <a class="{{ $navLinkClass(['customer.dashboard']) }}" href="{{ route('customer.dashboard') }}">
                 <span class="material-symbols-outlined">account_circle</span>
                 <span class="text-label-md font-label-md">Overview</span>
+            </a>
+            <a class="{{ $navLinkClass(['customer.transactions']) }}" href="{{ route('customer.transactions') }}">
+                <span class="material-symbols-outlined">receipt_long</span>
+                <span class="text-label-md font-label-md">Transactions</span>
             </a>
             <a class="{{ $navLinkClass(['shop']) }}" href="{{ route('shop') }}">
                 <span class="material-symbols-outlined">shopping_bag</span>

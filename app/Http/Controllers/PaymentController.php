@@ -26,6 +26,12 @@ class PaymentController extends Controller
                 ->with('error', 'This order has already been processed.');
         }
 
+        if ($order->isBankTransfer()) {
+            return redirect()
+                ->route('orders.show', $order)
+                ->with('error', 'This order is awaiting bank transfer. Use the account details on your order page.');
+        }
+
         try {
             $payment = $this->paystack->initializeTransaction([
                 'email' => $order->email,

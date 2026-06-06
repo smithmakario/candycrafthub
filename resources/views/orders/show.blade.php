@@ -6,7 +6,9 @@
     @include('marketing.partials.nav')
 
     <main class="pt-xl min-h-screen px-margin-mobile md:px-margin-desktop pb-xl max-w-3xl mx-auto">
-        <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-md">Order Confirmation</h1>
+        <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-md">
+            {{ $order->isPaid() ? 'Order Receipt' : 'Order Confirmation' }}
+        </h1>
 
         @if (session('success'))
             <p class="mb-md rounded-xl bg-primary-container text-on-primary-container px-md py-sm font-label-md">
@@ -20,6 +22,15 @@
             </p>
         @endif
 
+        @if ($order->isPaid())
+            @include('orders.partials.receipt', ['order' => $order])
+        @elseif (auth()->check() && auth()->user()->isCustomer())
+            <p class="mb-md rounded-xl bg-surface-container px-md py-sm font-body-sm text-on-surface-variant">
+                Track this order in
+                <a href="{{ route('customer.transactions') }}" class="text-primary underline">My Transactions</a>.
+            </p>
+        @endif
+
         <div class="glass-card p-lg rounded-xl border border-outline-variant/30 mb-lg">
             <dl class="space-y-sm font-body-md">
                 <div class="flex justify-between gap-md">
@@ -29,8 +40,12 @@
                 <div class="flex justify-between gap-md">
                     <dt class="text-on-surface-variant">Status</dt>
                     <dd class="font-label-md {{ $order->isPaid() ? 'text-primary' : 'text-on-surface' }}">
-                        {{ $order->status->label() }}
+                        {{ $order->statusLabel() }}
                     </dd>
+                </div>
+                <div class="flex justify-between gap-md">
+                    <dt class="text-on-surface-variant">Payment method</dt>
+                    <dd>{{ $order->payment_method->label() }}</dd>
                 </div>
                 <div class="flex justify-between gap-md">
                     <dt class="text-on-surface-variant">Email</dt>
@@ -59,6 +74,15 @@
             </dl>
         </div>
 
+        @if ($order->isBankTransfer() && $order->status === \App\OrderStatus::Pending)
+            <div class="mb-lg">
+                @include('orders.partials.bank-transfer-details', [
+                    'reference' => $order->reference,
+                    'order' => $order,
+                ])
+            </div>
+        @endif
+
         <h2 class="font-headline-sm text-headline-sm mb-md">Items</h2>
         <ul class="space-y-sm mb-lg">
             @foreach ($order->items as $item)
@@ -69,7 +93,7 @@
             @endforeach
         </ul>
 
-        @if ($order->status === \App\OrderStatus::Pending)
+        @if ($order->status === \App\OrderStatus::Pending && ! $order->isBankTransfer())
             <a href="{{ route('payment.initiate', $order) }}"
                 class="inline-flex bg-primary text-on-primary px-lg py-sm rounded-full font-label-md hover:scale-105 transition-all">
                 Retry Payment

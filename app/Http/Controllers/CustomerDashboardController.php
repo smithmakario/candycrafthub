@@ -16,11 +16,8 @@ class CustomerDashboardController extends Controller
         $user = auth()->user();
 
         $orders = Order::query()
+            ->forCustomer($user)
             ->with('items')
-            ->where(function ($query) use ($user): void {
-                $query->where('user_id', $user->id)
-                    ->orWhere('email', $user->email);
-            })
             ->orderByDesc('created_at')
             ->get();
 

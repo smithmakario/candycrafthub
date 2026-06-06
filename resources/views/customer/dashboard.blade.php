@@ -40,12 +40,12 @@
                                     'bg-error-container text-on-error-container' => $order->status === \App\OrderStatus::Failed,
                                     'bg-surface-container text-on-surface-variant' => $order->status === \App\OrderStatus::Pending,
                                 ])>
-                                    {{ $order->status->label() }}
+                                {{ $order->statusLabel() }}
                                 </span>
                             </td>
                             <td class="px-md py-md align-middle text-right">
                                 <a href="{{ route('orders.show', $order) }}" class="text-primary hover:underline text-label-sm">View</a>
-                                @if ($order->status === \App\OrderStatus::Pending)
+                                @if ($order->status === \App\OrderStatus::Pending && ! $order->isBankTransfer())
                                     <a href="{{ route('payment.initiate', $order) }}" class="text-primary hover:underline text-label-sm ml-sm">Pay</a>
                                 @endif
                             </td>

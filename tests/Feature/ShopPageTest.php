@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Product;
+use App\Models\User;
 use App\ProductOrigin;
 use Database\Seeders\ShopCatalogSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -56,14 +57,23 @@ class ShopPageTest extends TestCase
         $this->post(route('cart.store', $product));
 
         $response = $this->post(route('checkout.store'), [
+            'account_mode' => 'register',
+            'first_name' => 'Shop',
+            'last_name' => 'Customer',
             'email' => 'shopper@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'fulfillment_type' => 'pickup',
+            'payment_method' => 'paystack',
         ]);
 
         $response->assertRedirect();
 
+        $user = User::query()->where('email', 'shopper@example.com')->firstOrFail();
+
         $this->assertDatabaseHas('orders', [
             'email' => 'shopper@example.com',
+            'user_id' => $user->id,
             'fulfillment_type' => 'pickup',
             'delivery_address' => null,
             'status' => 'pending',
@@ -78,18 +88,31 @@ class ShopPageTest extends TestCase
         $this->post(route('cart.store', $product));
 
         $this->post(route('checkout.store'), [
+            'account_mode' => 'register',
+            'first_name' => 'Shop',
+            'last_name' => 'Customer',
             'email' => 'shopper@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'fulfillment_type' => 'delivery',
+            'payment_method' => 'paystack',
         ])->assertSessionHasErrors('delivery_address');
 
         $this->post(route('checkout.store'), [
-            'email' => 'shopper@example.com',
+            'account_mode' => 'register',
+            'first_name' => 'Shop',
+            'last_name' => 'Customer',
+            'email' => 'delivery@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'phone' => '08012345678',
             'fulfillment_type' => 'delivery',
+            'payment_method' => 'paystack',
             'delivery_address' => '12 Admiralty Way, Lekki Phase 1, Lagos',
         ])->assertRedirect();
 
         $this->assertDatabaseHas('orders', [
-            'email' => 'shopper@example.com',
+            'email' => 'delivery@example.com',
             'fulfillment_type' => 'delivery',
             'delivery_address' => '12 Admiralty Way, Lekki Phase 1, Lagos',
         ]);

@@ -124,6 +124,10 @@
                     <span class="material-symbols-outlined text-primary">event_available</span>
                     <span class="font-label-md">View Bookings Pipeline</span>
                 </a>
+                <a href="{{ route('orders.index') }}" class="bg-surface-container-lowest p-sm rounded-lg shadow-sm hover:border-primary/40 border border-transparent transition-colors flex items-center gap-sm">
+                    <span class="material-symbols-outlined text-primary">receipt_long</span>
+                    <span class="font-label-md">View Transactions</span>
+                </a>
             </div>
         </section>
     </div>

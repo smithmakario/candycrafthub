@@ -12,6 +12,7 @@
         <a href="{{ route('shop') }}" class="{{ $navLinkClass('shop') }}">Shop</a>
         <a href="{{ route('event-services') }}" class="{{ $navLinkClass('event-services') }}">Event Services</a>
         <a href="{{ route('our-story') }}" class="{{ $navLinkClass('our-story') }}">Our Story</a>
+        <a href="{{ route('contact') }}" class="{{ $navLinkClass('contact') }}">Contact Us</a>
     </div>
     <div class="flex items-center gap-md">
         @if (Route::has('login'))

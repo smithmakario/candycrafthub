@@ -3,11 +3,13 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryItemController;
 use App\Http\Controllers\MembershipPlanController;
 use App\Http\Controllers\NewsletterSubscriberController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -31,10 +33,18 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.s
 Route::get('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 Route::get('/orders/{order}/pay', [PaymentController::class, 'initiate'])->name('payment.initiate');
 Route::get('/orders/{order}', [PaymentController::class, 'show'])->name('orders.show');
+Route::post('/orders/{order}/submit-payment', [OrderController::class, 'submitPayment'])
+    ->middleware('throttle:10,1')
+    ->name('orders.submit-payment');
 
 Route::view('/event-services', 'event-services.index')->name('event-services');
 
 Route::view('/our-story', 'story.index')->name('our-story');
+
+Route::get('/contact', [ContactMessageController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactMessageController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.store');
 
 Route::post('/event-services/inquiries', [BookingController::class, 'storePublic'])
     ->name('bookings.store-public');
@@ -49,10 +59,13 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('membership-plans', MembershipPlanController::class)
         ->parameters(['membership-plans' => 'membershipPlan']);
     Route::get('/newsletter', [NewsletterSubscriberController::class, 'index'])->name('newsletter.index');
+    Route::get('/transactions', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{order}/confirm-payment', [OrderController::class, 'confirmPayment'])->name('orders.confirm-payment');
 });
 
 Route::middleware(['auth', 'verified', 'customer'])->group(function () {
     Route::get('/account', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
+    Route::get('/account/transactions', [OrderController::class, 'customerIndex'])->name('customer.transactions');
 });
 
 Route::middleware('auth')->group(function () {
