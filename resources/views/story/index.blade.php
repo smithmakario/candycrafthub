@@ -94,9 +94,15 @@
 Candy Craft Hub is where nostalgia meets discovery, childhood memories blend with new adventures and every bite tells a story because life is sweeter when it’s shared.
             </p>
             <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                Our mission is to expand the Nigerian palate, introducing sophisticated textures and global flavor
-                profiles—from the intense citrus of Japanese yuzu drops to the rich complexity of single-origin dark
-                chocolates. We bring the world's finest craftsmanship to your doorstep.
+                <span class="font-bold">Vision statement:</span>
+                <p>To be the heart of every gathering, where the magic of childhood memory meets the excitement
+                of new discovery, making life’s moments sweeter through the art of shared confectionery
+                experiences.</p>
+                <br>
+                <span class="font-bold">Mission statement:</span>
+                <p>To spark joy and create unforgettable experiences by curating a diverse collection from
+                nostalgic classics to new global candy discoveries bringing sweetness to every celebration and
+                everyday moments.</p>
             </p>
         </div>
     </section>

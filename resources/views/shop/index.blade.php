@@ -28,19 +28,19 @@
                     <h3 class="font-headline-sm text-headline-sm text-on-surface mb-md">Categories</h3>
                     <div class="flex flex-col gap-sm">
                         <a href="{{ route('shop') }}"
-                            class="flex items-center justify-between group px-sm py-xs rounded-lg {{ $activeFilter === null ? 'bg-primary text-on-primary' : 'hover:bg-surface-container' }} transition-all duration-300">
+                            class="flex items-center justify-between group px-sm py-xs rounded-lg {{ $activeCategory === null ? 'bg-primary text-on-primary' : 'hover:bg-surface-container' }} transition-all duration-300">
                             <span class="font-label-md text-label-md">All Products</span>
-                            @if ($activeFilter === null)
+                            @if ($activeCategory === null)
                                 <span class="material-symbols-outlined text-sm"
                                     data-icon="arrow_forward_ios">arrow_forward_ios</span>
                             @endif
                         </a>
-                        @foreach ($filters as $key => $filter)
-                            <a href="{{ route('shop', ['filter' => $key]) }}"
-                                class="flex items-center justify-between group px-sm py-xs rounded-lg {{ $activeFilter === $key ? 'bg-primary text-on-primary' : 'hover:bg-surface-container' }} transition-all duration-300">
-                                <span class="font-label-md text-label-md">{{ $filter['label'] }}</span>
+                        @foreach ($categories as $category)
+                            <a href="{{ route('shop', ['category' => $category->slug]) }}"
+                                class="flex items-center justify-between group px-sm py-xs rounded-lg {{ $activeCategory?->is($category) ? 'bg-primary text-on-primary' : 'hover:bg-surface-container' }} transition-all duration-300">
+                                <span class="font-label-md text-label-md">{{ $category->name }}</span>
                                 <span
-                                    class="material-symbols-outlined text-sm {{ $activeFilter === $key ? '' : 'opacity-0 group-hover:opacity-100' }}"
+                                    class="material-symbols-outlined text-sm {{ $activeCategory?->is($category) ? '' : 'opacity-0 group-hover:opacity-100' }}"
                                     data-icon="arrow_forward_ios">arrow_forward_ios</span>
                             </a>
                         @endforeach

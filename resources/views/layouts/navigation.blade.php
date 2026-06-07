@@ -33,6 +33,10 @@
                 <span class="material-symbols-outlined">shopping_bag</span>
                 <span class="text-label-md font-label-md">Products</span>
             </a>
+            <a class="{{ $navLinkClass(['categories.*']) }}" href="{{ route('categories.index') }}">
+                <span class="material-symbols-outlined">category</span>
+                <span class="text-label-md font-label-md">Categories</span>
+            </a>
             <a class="{{ $navLinkClass(['inventory.*']) }}" href="{{ route('inventory.index') }}">
                 <span class="material-symbols-outlined">inventory_2</span>
                 <span class="text-label-md font-label-md">Inventory</span>

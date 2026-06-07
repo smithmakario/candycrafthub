@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\ProductOrigin;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +17,7 @@ class ProductController extends Controller
     public function index(): View
     {
         $products = Product::query()
-            ->with('inventoryItem')
+            ->with(['inventoryItem', 'category'])
             ->orderByDesc('id')
             ->paginate(15);
 
@@ -29,6 +30,7 @@ class ProductController extends Controller
     {
         return view('products.create', [
             'origins' => ProductOrigin::cases(),
+            'categories' => Category::query()->ordered()->get(),
         ]);
     }
 
@@ -50,7 +52,7 @@ class ProductController extends Controller
 
     public function show(Product $product): View
     {
-        $product->load('inventoryItem');
+        $product->load(['inventoryItem', 'category']);
 
         return view('products.show', [
             'product' => $product,
@@ -62,6 +64,7 @@ class ProductController extends Controller
         return view('products.edit', [
             'product' => $product,
             'origins' => ProductOrigin::cases(),
+            'categories' => Category::query()->ordered()->get(),
         ]);
     }
 

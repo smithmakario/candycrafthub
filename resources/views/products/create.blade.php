@@ -6,5 +6,5 @@
         'subtitle' => 'Create a new catalog item.',
     ])
 
-    @include('products._form', ['origins' => $origins])
+    @include('products._form', ['origins' => $origins, 'categories' => $categories])
 </x-app-layout>

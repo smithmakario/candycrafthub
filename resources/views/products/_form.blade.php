@@ -33,8 +33,13 @@
     </div>
 
     <div>
-        <label for="category" class="block text-label-md font-label-md mb-xs text-on-surface-variant">Category</label>
-        <input id="category" name="category" type="text" value="{{ old('category', $productModel?->category) }}" class="w-full rounded-full border-2 border-secondary focus:border-primary focus:ring-0 px-md py-sm bg-white/50">
+        <label for="category_id" class="block text-label-md font-label-md mb-xs text-on-surface-variant">Category</label>
+        <select id="category_id" name="category_id" class="w-full rounded-full border-2 border-secondary focus:border-primary focus:ring-0 px-md py-sm bg-white/50">
+            <option value="">No category</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" @selected((string) old('category_id', $productModel?->category_id) === (string) $category->id)>{{ $category->name }}</option>
+            @endforeach
+        </select>
     </div>
 
     <div>

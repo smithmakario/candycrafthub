@@ -20,7 +20,7 @@
             <div class="p-md space-y-sm">
             <p><span class="text-on-surface-variant">SKU:</span> {{ $product->sku ?? '—' }}</p>
             <p><span class="text-on-surface-variant">Origin:</span> {{ $product->origin->label() }}</p>
-            <p><span class="text-on-surface-variant">Category:</span> {{ $product->category ?? '—' }}</p>
+            <p><span class="text-on-surface-variant">Category:</span> {{ $product->category?->name ?? '—' }}</p>
             <p><span class="text-on-surface-variant">Unit Price:</span> ₦{{ number_format($product->unit_price, 0) }}</p>
             <p><span class="text-on-surface-variant">Status:</span> {{ $product->is_active ? 'Active' : 'Inactive' }}</p>
             @if ($product->description)

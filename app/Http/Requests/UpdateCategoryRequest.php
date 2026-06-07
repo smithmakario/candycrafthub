@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\ProductOrigin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreProductRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -20,12 +19,15 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'sku' => ['nullable', 'string', 'max:255', 'unique:products,sku'],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
+                Rule::unique('categories', 'slug')->ignore($this->route('category')),
+            ],
             'description' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'max:2048'],
-            'origin' => ['required', Rule::enum(ProductOrigin::class)],
-            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
-            'unit_price' => ['required', 'numeric', 'min:0'],
+            'sort_order' => ['required', 'integer', 'min:0'],
             'is_active' => ['sometimes', 'boolean'],
         ];
     }

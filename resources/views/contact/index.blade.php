@@ -117,7 +117,7 @@
                             </div>
                             <div>
                                 <h3 class="font-headline-sm text-headline-sm text-on-surface">Lagos HQ</h3>
-                                <p class="font-body-md text-body-md text-on-surface-variant mt-xs">Suite 12, Sugar Plaza,
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-xs">
                                     Admiralty Way, In the heart of Lekki Phase 1, Lagos.</p>
                             </div>
                         </div>
@@ -140,14 +140,14 @@
                             <span class="material-symbols-outlined text-secondary" data-icon="chat">chat</span>
                             <div>
                                 <p class="font-label-md text-label-md text-on-surface-variant">Phone &amp; WhatsApp</p>
-                                <p class="font-body-lg text-body-lg text-on-surface font-semibold">+234 800 CANDY HELP</p>
+                                <p class="font-body-lg text-body-lg text-on-surface font-semibold">+234 913 750 0141</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-md">
                             <span class="material-symbols-outlined text-secondary" data-icon="mail">mail</span>
                             <div>
                                 <p class="font-label-md text-label-md text-on-surface-variant">General Sweets</p>
-                                <p class="font-body-lg text-body-lg text-on-surface font-semibold">hello@candycraft.ng</p>
+                                <p class="font-body-lg text-body-lg text-on-surface font-semibold">customercare@candycrafthub.com</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-md">
@@ -155,7 +155,7 @@
                                 data-icon="event_available">event_available</span>
                             <div>
                                 <p class="font-label-md text-label-md text-on-surface-variant">Event Inquiries</p>
-                                <p class="font-body-lg text-body-lg text-on-surface font-semibold">events@candycraft.ng</p>
+                                <p class="font-body-lg text-body-lg text-on-surface font-semibold">enquiry@candycrafthub.com</p>
                             </div>
                         </div>
                     </div>
@@ -244,7 +244,7 @@
                     <span
                         class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors">Instagram</span>
                 </a>
-                <a class="group flex flex-col items-center gap-sm" href="#">
+                <a class="group flex flex-col items-center gap-sm" href="https://www.facebook.com/Candycrafthub/">
                     <div
                         class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
                         <span class="material-symbols-outlined text-on-primary-container text-[32px]"

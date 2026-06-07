@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Models\User;
 use App\ProductOrigin;
+use Database\Seeders\CategorySeeder;
 use Database\Seeders\ShopCatalogSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -17,7 +18,10 @@ class ShopPageTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(ShopCatalogSeeder::class);
+        $this->seed([
+            CategorySeeder::class,
+            ShopCatalogSeeder::class,
+        ]);
     }
 
     public function test_shop_page_is_accessible(): void
@@ -29,12 +33,38 @@ class ShopPageTest extends TestCase
             ->assertSee('Midnight Truffles');
     }
 
+    public function test_shop_page_lists_all_active_categories(): void
+    {
+        $this->get(route('shop'))
+            ->assertOk()
+            ->assertSee('Gummies')
+            ->assertSee('Chocolate')
+            ->assertSee('Jellies')
+            ->assertSee('Truffles')
+            ->assertSee('Nostalgic Classics');
+    }
+
+    public function test_shop_page_shows_empty_state_for_category_without_shop_products(): void
+    {
+        $this->get(route('shop', ['category' => 'jellies']))
+            ->assertOk()
+            ->assertSee('No products match this category yet.');
+    }
+
     public function test_shop_page_can_filter_by_category(): void
     {
-        $this->get(route('shop', ['filter' => 'chocolate']))
+        $this->get(route('shop', ['category' => 'chocolate']))
             ->assertOk()
             ->assertSee('Midnight Truffles')
             ->assertDontSee('Sugar Clouds Box');
+    }
+
+    public function test_shop_page_ignores_invalid_category_slug(): void
+    {
+        $this->get(route('shop', ['category' => 'invalid-category']))
+            ->assertOk()
+            ->assertSee('Sugar Clouds Box')
+            ->assertSee('Midnight Truffles');
     }
 
     public function test_guest_can_add_product_to_cart(): void

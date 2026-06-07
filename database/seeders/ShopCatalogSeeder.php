@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\InventoryItem;
 use App\Models\Product;
 use App\ProductOrigin;
@@ -70,12 +71,14 @@ class ShopCatalogSeeder extends Seeder
         ];
 
         foreach ($catalog as $item) {
+            $categoryId = Category::query()->where('name', $item['category'])->value('id');
+
             $product = Product::query()->updateOrCreate(
                 ['sku' => $item['sku']],
                 [
                     'name' => $item['name'],
                     'origin' => $item['origin'],
-                    'category' => $item['category'],
+                    'category_id' => $categoryId,
                     'unit_price' => $item['unit_price'],
                     'badge' => $item['badge'],
                     'taste_profile' => $item['taste_profile'],

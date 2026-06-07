@@ -37,7 +37,7 @@
                         <td class="px-md py-md align-middle font-semibold">{{ $product->name }}</td>
                         <td class="px-md py-md align-middle">{{ $product->sku ?? '—' }}</td>
                         <td class="px-md py-md align-middle">{{ $product->origin->label() }}</td>
-                        <td class="px-md py-md align-middle">{{ $product->category ?? '—' }}</td>
+                        <td class="px-md py-md align-middle">{{ $product->category?->name ?? '—' }}</td>
                         <td class="px-md py-md align-middle">₦{{ number_format($product->unit_price, 0) }}</td>
                         <td class="px-md py-md align-middle">
                             <span @class([

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\ProductOrigin;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,7 +24,7 @@ class ProductFactory extends Factory
             'sku' => strtoupper(fake()->unique()->bothify('CCH-####')),
             'description' => fake()->optional()->sentence(),
             'origin' => fake()->randomElement(ProductOrigin::cases()),
-            'category' => fake()->randomElement(['Gummies', 'Chocolates', 'Jellies', 'Lollipops', 'Truffles']),
+            'category_id' => Category::factory(),
             'unit_price' => fake()->randomFloat(2, 100, 2500),
             'is_active' => true,
         ];

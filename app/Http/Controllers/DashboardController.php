@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BookingStatus;
 use App\Models\Booking;
+use App\Models\Category;
 use App\Models\InventoryItem;
 use App\Models\Product;
 use App\ProductOrigin;
@@ -17,12 +18,10 @@ class DashboardController extends Controller
         $newInquiriesCount = Booking::query()->status(BookingStatus::InquiryReceived)->count();
         $lowStockCount = InventoryItem::query()->lowStock()->count();
 
-        $topCategory = Product::query()
-            ->select('category')
-            ->whereNotNull('category')
-            ->groupBy('category')
-            ->orderByRaw('COUNT(*) DESC')
-            ->value('category') ?? 'Gourmet Gummies';
+        $topCategory = Category::query()
+            ->withCount('products')
+            ->orderByDesc('products_count')
+            ->value('name') ?? 'Gourmet Gummies';
 
         $inventoryItems = InventoryItem::query()
             ->with('product')

@@ -1,17 +1,19 @@
 @php
-    $profileContainerClass = match ($product->category) {
+    $categoryName = $product->category?->name;
+
+    $profileContainerClass = match ($categoryName) {
         'Chocolate' => 'bg-primary-container/20',
         'Nostalgic Classics' => 'bg-tertiary-container/30',
         default => 'bg-secondary-container/30',
     };
 
-    $profileLabelClass = match ($product->category) {
+    $profileLabelClass = match ($categoryName) {
         'Chocolate' => 'text-primary',
         'Nostalgic Classics' => 'text-tertiary',
         default => 'text-secondary',
     };
 
-    $profileTextClass = match ($product->category) {
+    $profileTextClass = match ($categoryName) {
         'Chocolate' => 'text-on-primary-container',
         'Nostalgic Classics' => 'text-on-tertiary-container',
         default => 'text-on-secondary-container',

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CustomerDashboardController;
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('products', ProductController::class);
+    Route::resource('categories', CategoryController::class);
     Route::resource('inventory', InventoryItemController::class)
         ->parameters(['inventory' => 'inventoryItem']);
     Route::resource('bookings', BookingController::class);

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use App\ProductOrigin;
@@ -31,12 +32,13 @@ class ProductTest extends TestCase
     public function test_authenticated_user_can_create_product(): void
     {
         $user = User::factory()->admin()->create();
+        $category = Category::factory()->create(['name' => 'Gummies']);
 
         $response = $this->actingAs($user)->post(route('products.store'), [
             'name' => 'Tangerine Chews',
             'sku' => 'CCH-1001',
             'origin' => ProductOrigin::LocalNostalgia->value,
-            'category' => 'Gummies',
+            'category_id' => $category->id,
             'unit_price' => 150,
             'is_active' => true,
         ]);
@@ -45,6 +47,7 @@ class ProductTest extends TestCase
         $this->assertDatabaseHas('products', [
             'name' => 'Tangerine Chews',
             'sku' => 'CCH-1001',
+            'category_id' => $category->id,
         ]);
     }
 
@@ -52,12 +55,13 @@ class ProductTest extends TestCase
     {
         Storage::fake('public');
         $user = User::factory()->admin()->create();
+        $category = Category::factory()->create(['name' => 'Gummies']);
 
         $response = $this->actingAs($user)->post(route('products.store'), [
             'name' => 'Tangerine Chews',
             'sku' => 'CCH-1002',
             'origin' => ProductOrigin::LocalNostalgia->value,
-            'category' => 'Gummies',
+            'category_id' => $category->id,
             'unit_price' => 150,
             'is_active' => true,
             'image' => UploadedFile::fake()->image('tangerine.jpg'),
@@ -79,7 +83,7 @@ class ProductTest extends TestCase
             'name' => 'Updated Name',
             'sku' => $product->sku,
             'origin' => $product->origin->value,
-            'category' => $product->category,
+            'category_id' => $product->category_id,
             'unit_price' => $product->unit_price,
             'is_active' => true,
         ]);

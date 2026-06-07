@@ -27,7 +27,7 @@ class UpdateProductRequest extends FormRequest
             'image' => ['nullable', 'image', 'max:2048'],
             'remove_image' => ['sometimes', 'boolean'],
             'origin' => ['required', Rule::enum(ProductOrigin::class)],
-            'category' => ['nullable', 'string', 'max:255'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
             'unit_price' => ['required', 'numeric', 'min:0'],
             'is_active' => ['sometimes', 'boolean'],
         ];
