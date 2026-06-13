@@ -188,14 +188,14 @@ Candy Craft Hub is where nostalgia meets discovery, childhood memories blend wit
                 </h2>
             </div>
             <div class="relative z-10 flex flex-col md:flex-row justify-center items-center gap-md">
-                <button
-                    class="w-full md:w-auto bg-tertiary text-on-tertiary font-label-md text-label-md px-lg py-md rounded-full shadow-premium hover:scale-105 transition-transform active:opacity-80">
+                <a href="{{ route('shop') }}"
+                    class="inline-block w-full md:w-auto bg-tertiary text-on-tertiary font-label-md text-label-md px-lg py-md rounded-full shadow-premium hover:scale-105 transition-transform active:opacity-80 text-center">
                     Shop Our Candy Boxes
-                </button>
-                <button
-                    class="w-full md:w-auto border-2 border-secondary text-secondary font-label-md text-label-md px-lg py-md rounded-full hover:bg-secondary hover:text-white transition-all active:opacity-80">
+                </a>
+                <a href="{{ route('event-services') }}"
+                    class="inline-block w-full md:w-auto border-2 border-secondary text-secondary font-label-md text-label-md px-lg py-md rounded-full hover:bg-secondary hover:text-white transition-all active:opacity-80 text-center">
                     Book an Event Setup
-                </button>
+                </a>
             </div>
         </div>
     </section>

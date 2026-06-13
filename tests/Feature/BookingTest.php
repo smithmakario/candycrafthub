@@ -62,6 +62,51 @@ class BookingTest extends TestCase
         ]);
     }
 
+    public function test_admin_can_mark_in_production_booking_as_completed(): void
+    {
+        $user = User::factory()->admin()->create();
+        $booking = Booking::factory()->status(BookingStatus::InProduction)->create([
+            'progress' => 75,
+        ]);
+
+        $response = $this->actingAs($user)->post(route('bookings.complete', $booking));
+
+        $response->assertRedirect(route('bookings.index'));
+        $this->assertDatabaseHas('bookings', [
+            'id' => $booking->id,
+            'status' => BookingStatus::Completed->value,
+            'progress' => 100,
+        ]);
+    }
+
+    public function test_admin_can_edit_in_production_booking(): void
+    {
+        $user = User::factory()->admin()->create();
+        $booking = Booking::factory()->status(BookingStatus::InProduction)->create([
+            'progress' => 40,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('bookings.edit', $booking))
+            ->assertOk();
+
+        $response = $this->actingAs($user)->put(route('bookings.update', $booking), [
+            'title' => 'Updated Production Event',
+            'event_type' => $booking->event_type->value,
+            'status' => BookingStatus::InProduction->value,
+            'progress' => 85,
+            'is_priority' => false,
+        ]);
+
+        $response->assertRedirect(route('bookings.index'));
+        $this->assertDatabaseHas('bookings', [
+            'id' => $booking->id,
+            'title' => 'Updated Production Event',
+            'status' => BookingStatus::InProduction->value,
+            'progress' => 85,
+        ]);
+    }
+
     public function test_public_can_submit_event_services_inquiry(): void
     {
         $response = $this->post(route('bookings.store-public'), [

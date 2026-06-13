@@ -7,6 +7,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventPackageController;
+use App\Http\Controllers\EventServicesController;
 use App\Http\Controllers\InventoryItemController;
 use App\Http\Controllers\MembershipPlanController;
 use App\Http\Controllers\NewsletterSubscriberController;
@@ -38,7 +40,7 @@ Route::post('/orders/{order}/submit-payment', [OrderController::class, 'submitPa
     ->middleware('throttle:10,1')
     ->name('orders.submit-payment');
 
-Route::view('/event-services', 'event-services.index')->name('event-services');
+Route::get('/event-services', EventServicesController::class)->name('event-services');
 
 Route::view('/our-story', 'story.index')->name('our-story');
 
@@ -58,8 +60,12 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('inventory', InventoryItemController::class)
         ->parameters(['inventory' => 'inventoryItem']);
     Route::resource('bookings', BookingController::class);
+    Route::post('/bookings/{booking}/complete', [BookingController::class, 'complete'])
+        ->name('bookings.complete');
     Route::resource('membership-plans', MembershipPlanController::class)
         ->parameters(['membership-plans' => 'membershipPlan']);
+    Route::resource('event-packages', EventPackageController::class)
+        ->parameters(['event-packages' => 'eventPackage']);
     Route::get('/newsletter', [NewsletterSubscriberController::class, 'index'])->name('newsletter.index');
     Route::get('/transactions', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders/{order}/confirm-payment', [OrderController::class, 'confirmPayment'])->name('orders.confirm-payment');

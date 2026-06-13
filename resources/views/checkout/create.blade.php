@@ -5,7 +5,7 @@
 @section('content')
     @include('marketing.partials.nav')
 
-    <main class="pt-xl min-h-screen px-margin-mobile md:px-margin-desktop pb-xl">
+    <main class="pt-xl mt-10 min-h-screen px-margin-mobile md:px-margin-desktop pb-xl">
         <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-lg">Checkout</h1>
 
         @if (session('error'))
@@ -110,6 +110,22 @@
                                         <p class="mt-xs text-error font-label-sm">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                <div class="mb-md">
+                                    <label for="email" class="block font-label-md text-label-md mb-xs">Email address</label>
+                                    <input id="email" type="email" name="email" value="{{ old('email') }}" required
+                                        class="w-full px-md py-sm rounded-xl bg-surface-container-lowest border-2 border-outline-variant focus:border-primary focus:ring-0">
+                                    @error('email')
+                                        <p class="mt-xs text-error font-label-sm">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-lg">
+                                    <label for="password" class="block font-label-md text-label-md mb-xs">Password</label>
+                                    <input id="password" type="password" name="password" required
+                                        class="w-full px-md py-sm rounded-xl bg-surface-container-lowest border-2 border-outline-variant focus:border-primary focus:ring-0">
+                                    @error('password')
+                                        <p class="mt-xs text-error font-label-sm">{{ $message }}</p>
+                                    @enderror
+                                </div>
                                 <div id="password-confirmation-field">
                                     <label for="password_confirmation" class="block font-label-md text-label-md mb-xs">Confirm password</label>
                                     <input id="password_confirmation" type="password" name="password_confirmation"
@@ -120,24 +136,6 @@
                                 </div>
                             </div>
                         </fieldset>
-
-                        <div class="mb-md">
-                            <label for="email" class="block font-label-md text-label-md mb-xs">Email address</label>
-                            <input id="email" type="email" name="email" value="{{ old('email') }}" required
-                                class="w-full px-md py-sm rounded-xl bg-surface-container-lowest border-2 border-outline-variant focus:border-primary focus:ring-0">
-                            @error('email')
-                                <p class="mt-xs text-error font-label-sm">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-lg">
-                            <label for="password" class="block font-label-md text-label-md mb-xs">Password</label>
-                            <input id="password" type="password" name="password" required
-                                class="w-full px-md py-sm rounded-xl bg-surface-container-lowest border-2 border-outline-variant focus:border-primary focus:ring-0">
-                            @error('password')
-                                <p class="mt-xs text-error font-label-sm">{{ $message }}</p>
-                            @enderror
-                        </div>
                     @endauth
 
                     <fieldset class="mb-lg">

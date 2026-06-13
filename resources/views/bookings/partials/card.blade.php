@@ -18,7 +18,17 @@
         <div class="w-full bg-surface-container rounded-full h-2 mb-md">
             <div class="bg-primary h-full rounded-full" style="width: {{ $booking->progress }}%"></div>
         </div>
-        <span class="text-label-sm text-on-surface-variant">{{ $booking->progress }}% Complete</span>
+        <div class="flex justify-between items-center gap-sm">
+            <span class="text-label-sm text-on-surface-variant">{{ $booking->progress }}% Complete</span>
+            <div class="flex items-center gap-sm shrink-0">
+                <a href="{{ route('bookings.edit', $booking) }}" class="text-primary text-label-sm hover:underline">Edit</a>
+                <form method="POST" action="{{ route('bookings.complete', $booking) }}" class="inline"
+                    onsubmit="return confirm('Mark this booking as completed?')">
+                    @csrf
+                    <button type="submit" class="text-secondary text-label-sm hover:underline font-bold">Complete</button>
+                </form>
+            </div>
+        </div>
     @elseif ($booking->status === \App\BookingStatus::Completed)
         <span class="text-label-sm text-secondary font-bold flex items-center gap-xs">
             <span class="material-symbols-outlined text-[16px]">check_circle</span>

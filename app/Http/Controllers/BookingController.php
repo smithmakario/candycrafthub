@@ -81,6 +81,24 @@ class BookingController extends Controller
             ->with('success', 'Booking deleted successfully.');
     }
 
+    public function complete(Booking $booking): RedirectResponse
+    {
+        if ($booking->status !== BookingStatus::InProduction) {
+            return redirect()
+                ->route('bookings.index')
+                ->with('error', 'Only in-production bookings can be marked complete.');
+        }
+
+        $booking->update([
+            'status' => BookingStatus::Completed,
+            'progress' => 100,
+        ]);
+
+        return redirect()
+            ->route('bookings.index')
+            ->with('success', 'Booking marked as completed.');
+    }
+
     public function storePublic(StorePublicBookingRequest $request): RedirectResponse
     {
         $validated = $request->validated();

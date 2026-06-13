@@ -57,9 +57,8 @@
                                         class="sr-only">Quantity</label>
                                     <input id="quantity-{{ $product->id }}" type="number" name="quantity" min="0"
                                         max="99" value="{{ $line['quantity'] }}"
-                                        class="w-20 rounded-lg border border-outline-variant px-sm py-xs text-center">
-                                    <button type="submit"
-                                        class="text-primary font-label-md hover:underline">Update</button>
+                                        class="w-20 rounded-lg border border-outline-variant px-sm py-xs text-center"
+                                        onchange="this.form.submit()">
                                 </form>
                                 <form method="POST" action="{{ route('cart.destroy', $product) }}">
                                     @csrf

@@ -38,9 +38,7 @@ class CartController extends Controller
     {
         $this->cart->update($product, $request->integer('quantity'));
 
-        return redirect()
-            ->route('cart.index')
-            ->with('success', 'Cart updated.');
+        return redirect()->route('cart.index');
     }
 
     public function destroy(Product $product): RedirectResponse

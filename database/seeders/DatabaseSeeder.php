@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ShopCatalogSeeder::class,
             BookingSeeder::class,
             MembershipPlanSeeder::class,
+            EventPackageSeeder::class,
         ]);
     }
 }

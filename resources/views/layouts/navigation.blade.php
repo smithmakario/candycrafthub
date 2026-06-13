@@ -49,6 +49,10 @@
                 <span class="material-symbols-outlined">card_membership</span>
                 <span class="text-label-md font-label-md">Membership Plans</span>
             </a>
+            <a class="{{ $navLinkClass(['event-packages.*']) }}" href="{{ route('event-packages.index') }}">
+                <span class="material-symbols-outlined">celebration</span>
+                <span class="text-label-md font-label-md">Event Packages</span>
+            </a>
             <a class="{{ $navLinkClass(['newsletter.*']) }}" href="{{ route('newsletter.index') }}">
                 <span class="material-symbols-outlined">mail</span>
                 <span class="text-label-md font-label-md">Newsletter</span>
